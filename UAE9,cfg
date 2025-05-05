@@ -1,0 +1,45 @@
+# host definition
+define host {
+  host_name                      UAE9
+  alias                          Nagios Slave
+  address                        40.172.120.28
+  use                            windows-server
+  display_name                   UAE9 - Nagios
+  icon_image                     file_server.jpg
+  process_perf_data              1
+  statusmap_image                file_server.jpg
+}
+
+# add host dependency
+define service {
+  service_description            check-host-alive
+  host_name                      UAE9
+  use                            generic-service
+  check_command                  check-host-alive
+  icon_image                     Thumb-up-icon.png
+}
+
+define service {
+  service_description            CPU
+  host_name                      UAE9
+  use                            generic-service
+  check_command                  check_linux_CPU_ssh!40.172.120.28!80!90!5
+  icon_image                     Devices-cpu-icon.png
+}
+
+define service {
+  service_description            Memory
+  host_name                      UAE9
+  use                            generic-service
+  check_command                  check_linux_MEM_ssh!40.172.120.28!90!50!95!50
+  icon_image                     Devices-cpu-icon.png
+}
+
+define service {
+  service_description            Disk Usage
+  host_name                      UAE9
+  use                            generic-service
+  check_command                  check_linux_DISK_USAGE_ssh!40.172.120.28!20!10
+  icon_image                     Devices-cpu-icon.png
+}
+
